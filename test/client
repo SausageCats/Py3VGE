@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import multiprocessing
+
+from VGE.vge_init import vge_init
+from VGE.vge_finalize import vge_finalize
+from VGE.vge_task import vge_task
+
+#
+# create a job command, then submit it to VGE
+#
+
+
+def main(id, command, max_task):
+    basefilename = "client" + str(id)
+    vge_task(command, max_task, basefilename, "", "")
+
+
+#
+# main
+#
+if __name__ == '__main__':
+
+    max_task = 1
+
+    # initialize VGE...
+    vge_init()
+
+    command1 = ""
+    command1 += "#!/bin/bash\n"
+    command1 += "echo client1\n"
+
+    command2 = ""
+    command2 += "#!/bin/bash\n"
+    command2 += "echo client2\n"
+
+    jobs = []
+
+    p = multiprocessing.Process(target=main, args=(1, command1, max_task))
+    jobs.append(p)
+    p.start()
+
+    p = multiprocessing.Process(target=main, args=(2, command2, max_task))
+    jobs.append(p)
+    p.start()
+
+    for p in jobs:
+        p.join()
+
+    # finalize VGE...
+    vge_finalize()
