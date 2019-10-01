@@ -1060,7 +1060,7 @@ def mpi_jobcontroll_master(cl_args, mpi_args, comm, total_joblist, new_joblist, 
         from VGE.write_vge_result2 import write_vge_result2
         from VGE.write_vge_result3 import write_vge_result3
         temp = total_joblist.copy()
-        if isinstance(temp, dict) and len(temp) > 1:
+        if isinstance(temp, dict) and len(temp) > 0:
             write_vge_result1(temp, mpi_args["total_joblist_filename"])
             del temp
         write_vge_result2(worker_jobcount_list, worker_worktime_list, mpi_args["vge_worker_result"])
