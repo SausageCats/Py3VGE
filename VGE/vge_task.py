@@ -9,7 +9,6 @@ import pickle
 import time
 import datetime
 import os
-import argparse
 
 from VGE.make_pipeline_jobstatuslist import make_pipeline_jobstatuslist
 from VGE.get_vge_conf import get_vge_conf
@@ -17,7 +16,7 @@ from VGE.get_process_name import get_process_name
 from VGE.get_pipeline_process_name_list import get_pipeline_process_name_list
 
 
-def vge_task(arg1, arg2, arg3, arg4, arg5=None):
+def vge_task(arg1, arg2, arg3, arg4="", arg5=None):
     # arg1: command to be performed
     # arg2: max_task
     # arg3: basefilename
@@ -124,23 +123,23 @@ def vge_task(arg1, arg2, arg3, arg4, arg5=None):
     timeout_ask = get_vge_conf("pipeline", "socket_timeout2", timeout_ask)
     time_config = time.time() - time_config
 
-    if isinstance(arg4, argparse.Namespace):
-        if arg4.socket_interval_after > 0:
-            nsleep_request = arg4.socket_interval_after
-        if arg4.socket_interval_request > 0:
-            nsleep_interval = arg4.socket_interval_request
-        if arg4.socket_interval_error > 0:
-            nsleep_connection_refused = arg4.socket_interval_error
-        if arg4.socket_interval_send > 0:
-            nsleep_aftersend = arg4.socket_interval_send
-        if arg4.socket_interval_update > 0:
-            nsleep_updatelist = arg4.socket_interval_update
-        if arg4.socket_interval_close > 0:
-            nsleep_controller = arg4.socket_interval_close
-        if arg4.socket_timeout1 > 0:
-            timeout_client = arg4.socket_timeout1
-        if arg4.socket_timeout2 > 0:
-            timeout_ask = arg4.socket_timeout2
+    if isinstance(arg4, dict):
+        if "socket_interval_request" in arg4 and isinstance(arg4["socket_interval_request"], int) and arg4["socket_interval_request"] > 0:
+            nsleep_interval = arg4["socket_interval_request"]
+        if "socket_interval_after" in arg4 and isinstance(arg4["socket_interval_after"], int) and arg4["socket_interval_after"] > 0:
+            nsleep_request = arg4["socket_interval_after"]
+        if "socket_interval_error" in arg4 and isinstance(arg4["socket_interval_error"], int) and arg4["socket_interval_error"] > 0:
+            nsleep_connection_refused = arg4["socket_interval_error"]
+        if "socket_interval_send" in arg4 and isinstance(arg4["socket_interval_send"], int) and arg4["socket_interval_send"] > 0:
+            nsleep_aftersend = arg4["socket_interval_send"]
+        if "socket_interval_update" in arg4 and isinstance(arg4["socket_interval_update"], int) and arg4["socket_interval_update"] > 0:
+            nsleep_updatelist = arg4["socket_interval_update"]
+        if "socket_interval_close" in arg4 and isinstance(arg4["socket_interval_close"], int) and arg4["socket_interval_close"] > 0:
+            nsleep_controller = arg4["socket_interval_close"]
+        if "socket_timeout1" in arg4 and isinstance(arg4["socket_timeout1"], int) and arg4["socket_timeout1"] > 0:
+            timeout_client = arg4["socket_timeout1"]
+        if "socket_timeout2" in arg4 and isinstance(arg4["socket_timeout2"], int) and arg4["socket_timeout2"] > 0:
+            timeout_ask = arg4["socket_timeout2"]
 
     #
     # verbose level
