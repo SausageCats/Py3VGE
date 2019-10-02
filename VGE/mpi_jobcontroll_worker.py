@@ -188,6 +188,7 @@ def mpi_jobcontroll_worker(cl_args, mpi_args, comm):
 
             env = os.environ.copy()
             if bulkjob_id is not None:
+                env["VGE_TASK_ID"] = str(bulkjob_id + 1)
                 env["SGE_TASK_ID"] = str(bulkjob_id + 1)
 
             #
