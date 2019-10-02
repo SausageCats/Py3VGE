@@ -182,8 +182,8 @@ def mpi_jobcontroll_worker(cl_args, mpi_args, comm):
                             break
                     else:
                         time.sleep(0.00005)  # 50 us wait
-                filename_stdout = vge_script_dir + "/" + filename + ".o" + str(jobid)
-                filename_stderr = vge_script_dir + "/" + filename + ".e" + str(jobid)
+                filename_stdout = vge_script_dir + "/" + filename + ".o" + str(bulkjob_id)
+                filename_stderr = vge_script_dir + "/" + filename + ".e" + str(bulkjob_id)
                 command = "bash %s > %s 2> %s" % (filename_script, filename_stdout, filename_stderr)
 
             env = os.environ.copy()
@@ -335,7 +335,7 @@ def mpi_jobcontroll_worker(cl_args, mpi_args, comm):
                 except Exception as error:
                     logger.error("VGE(MPI): worker[%s]: write error [script] [%s] [%s] [%s]" % (myrank_str, filename, error, command))
 
-                filename_stdout = vge_script_dir + "/" + filename + ".o" + str(jobid)
+                filename_stdout = vge_script_dir + "/" + filename + ".o" + str(bulkjob_id)
                 try:
                     writefile.close()
                     writefile = open(filename_stdout, "w")
@@ -343,7 +343,7 @@ def mpi_jobcontroll_worker(cl_args, mpi_args, comm):
                 except Exception as error:
                     logger.error("VGE(MPI): worker[%s]: write error [stdout] [%s] [%s] [%s]" % (myrank_str, filename, error, stdout))
 
-                filename_stderr = vge_script_dir + "/" + filename + ".e" + str(jobid)
+                filename_stderr = vge_script_dir + "/" + filename + ".e" + str(bulkjob_id)
                 try:
                     writefile = open(filename_stderr, "w")
                     writefile.write(stderr)

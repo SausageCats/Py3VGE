@@ -473,7 +473,7 @@ def pipeline_jobcontroll(cl_args, job_args, total_joblist, new_joblist, task_che
                                     #
                                     start_jobid = jobid
                                     if messeage["max_task"] == 0:
-                                        filename = basefilename + ".sh.0"
+                                        filename = basefilename + ".sh.%i" % start_jobid
                                         messeage["filename"] = filename
                                         messeage["bulkjob_id"] = 0
                                         new_joblist[jobid] = dict()
@@ -487,7 +487,7 @@ def pipeline_jobcontroll(cl_args, job_args, total_joblist, new_joblist, task_che
                                     else:  # bulk job
                                         number_of_bulkjob = int(messeage["max_task"])
                                         for bulkjob_id in range(number_of_bulkjob):
-                                            filename = basefilename + ".sh.%i" % bulkjob_id
+                                            filename = basefilename + ".sh.%i" % (start_jobid + bulkjob_id)
                                             messeage["filename"] = filename
                                             messeage["bulkjob_id"] = bulkjob_id
                                             new_joblist[jobid] = dict()
