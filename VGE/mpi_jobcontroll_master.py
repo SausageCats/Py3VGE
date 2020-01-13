@@ -279,7 +279,8 @@ def mpi_jobcontroll_master(cl_args, mpi_args, comm, total_joblist, new_joblist, 
                 if max_of_current_joblist >= task_check_restofjob:
                     if icount_local_new_joblist > 0:
                         # get one new job if new job is not packaged yet.
-                        (newjobid, newjob) = local_new_joblist.popitem()
+                        newjobid = list(local_new_joblist)[0]
+                        newjob = local_new_joblist.pop(newjobid)
                         icount_local_new_joblist -= 1  # decrement this value
                         #logger.debug("VGE(MPI): new job contents: [%s][%s]"  %(newjobid, newjob))
                         if "status" in newjob:

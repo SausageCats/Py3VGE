@@ -4,7 +4,7 @@ Py3VGE is a port of [VGE](https://github.com/SatoshiITO/VGE) to Python3.
 
 ## Requirements
 
-- Python >= 3.6
+- Python >= 3.7
 - MPI implementation like [MPICH](https://www.mpich.org/) or [Open MPI](https://www.open-mpi.org/)
 - [MPI for Python (mpi4py)](https://mpi4py.readthedocs.io/en/stable/index.html)
 
