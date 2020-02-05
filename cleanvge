@@ -9,8 +9,6 @@
 
 Clean VGE-related process
 
-version 2.1.0
-
 """
 
 import os

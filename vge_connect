@@ -11,8 +11,6 @@ vge_connect is:
 
 a connection and communication tool for Virtual Grid Engine (VGE)
 
-version 2.1.0
-
 """
 
 import os

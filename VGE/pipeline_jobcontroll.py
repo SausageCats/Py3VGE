@@ -476,13 +476,8 @@ def pipeline_jobcontroll(cl_args, job_args, total_joblist, new_joblist, task_che
                                         filename = basefilename + ".sh.%i" % start_jobid
                                         messeage["filename"] = filename
                                         messeage["bulkjob_id"] = 0
-                                        new_joblist[jobid] = dict()
                                         new_joblist[jobid] = messeage
-
-                                        total_joblist[jobid] = dict()
                                         total_joblist[jobid] = messeage
-
-                                        #time.sleep(nsleep_updatelist)
                                         jobid += 1
                                     else:  # bulk job
                                         number_of_bulkjob = int(messeage["max_task"])
@@ -490,12 +485,8 @@ def pipeline_jobcontroll(cl_args, job_args, total_joblist, new_joblist, task_che
                                             filename = basefilename + ".sh.%i" % (start_jobid + bulkjob_id)
                                             messeage["filename"] = filename
                                             messeage["bulkjob_id"] = bulkjob_id
-                                            new_joblist[jobid] = dict()
                                             new_joblist[jobid] = messeage
-
-                                            total_joblist[jobid] = dict()
                                             total_joblist[jobid] = messeage
-
                                             jobid += 1
 
                                     answer = dict()

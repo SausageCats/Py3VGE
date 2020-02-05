@@ -212,6 +212,7 @@ def mpi_jobcontroll_master(cl_args, mpi_args, comm, total_joblist, new_joblist, 
     max_of_current_joblist = (nproc - 1) + 5  # max of job pool size in current_joblist
     # max_check_count = 100
     task_check_restofjob = 0
+    count_newjobs = 0
 
     #//////////////////////////
     # job loop for the master node
@@ -279,17 +280,18 @@ def mpi_jobcontroll_master(cl_args, mpi_args, comm, total_joblist, new_joblist, 
                 if max_of_current_joblist >= task_check_restofjob:
                     if icount_local_new_joblist > 0:
                         # get one new job if new job is not packaged yet.
-                        newjobid = list(local_new_joblist)[0]
-                        newjob = local_new_joblist.pop(newjobid)
+                        newjob = local_new_joblist.pop(count_newjobs)
                         icount_local_new_joblist -= 1  # decrement this value
                         #logger.debug("VGE(MPI): new job contents: [%s][%s]"  %(newjobid, newjob))
                         if "status" in newjob:
                             if newjob["status"] is not None:
                                 #jobid = number_of_jobs  # this is because the jobid starts from zero.
+                                newjobid = count_newjobs
                                 current_joblist[newjobid] = newjob
                                 #total_joblist[newjobid] = newjob
                                 #number_of_jobs +=1 # update maximum number of jobs so far
                                 task_check_restofjob += 1
+                                count_newjobs += 1
                                 del new_joblist[newjobid]  # delete this order because we have already received
                                 time.sleep(nsleep_updatelist)
                                 #logger.debug("VGE(MPI): new job contents: [%s][%s]"  %(newjobid, newjob))

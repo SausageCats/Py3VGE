@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='VGE',
-      version='2.1.0',
+      version='2.1.1',
       description='Virtual Grid Engine for running bioinformatics pipelines on MPI-base supercomputers',
       author='Satoshi ITO, Masaaki YADOME, and Satoru MIYANO',
       author_email='sito.public@gmail.com',
